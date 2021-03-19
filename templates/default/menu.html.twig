@@ -1,0 +1,11 @@
+<ul class="js-clone-nav d-none d-lg-inline-none text-start site-menu float-end">
+    <li class="active"><a href="{{path('home')}}">{% trans %}Home {% endtrans %}</a></li>
+    <li class="has-children">
+        <a href="#">{% trans %} Categories{% endtrans %}</a>
+        <ul class="dropdown">
+        {% for category in categories %}
+            <li><a href="{{path('category', {slug:category.slug})}}">{{category.title}}</a></li>
+        {% endfor %}
+        </ul>
+    </li>
+</ul>

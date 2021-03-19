@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{category.title}}{% endblock %}
+
+{% block body %}
+<div class="section pt-5 pb-0">
+    <div class="container">
+        <div class="row mb-5 justify-content-center">
+            <div class="col-lg-9">
+                <span class="fw-normal text-uppercase d-block mb-1">{% trans %} Categories {% endtrans %}</span>
+                <h2 class="heading">{{ category.title }}</h2>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            {% for blog in category.blogs %}
+            <div class="col-lg-9">
+                <div class="post-entry d-md-flex small-horizontal mb-5">
+                    <div class="me-md-5 thumbnail mb-3 mb-md-0">
+                        <img src="{{blog.cover}}" alt="Image" class="img-fluid">
+                    </div>
+                    <div class="content">
+                        <div class="post-meta mb-3">
+                            <a href="#" class="category">{{category.title}}</a> &mdash;
+                            <span class="date">{{blog.createdAt|date("m/d/Y") }}</span>
+                        </div>
+                        <h2 class="heading"><a href="single.html">{{blog.title}}</a></h2>
+                        <p>{{ blog.introduction }}</p>
+                        <a href="#" class="post-author d-flex align-items-center">
+                            <div class="author-pic">
+                                <img src="https://i.pravatar.cc/45" alt="Image">
+                            </div>
+                            <div class="text">
+                                <strong>Sergy Campbell</strong>
+                                <span>Author, 26 published post</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+{% endblock %}

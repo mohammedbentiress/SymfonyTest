@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}NOT FOUND{% endblock %}
+
+{% block body %}
+    <div class="notfound-404">
+        <h1> {{ status_code }} </h1>
+    </div>
+    <h2> {{ status_code }} </h2>
+    <form class="notfound-search" action ="{{ url('search') }}">
+        <input type="text" placeholder="{% trans %} Search {% endtrans %}..." name ="q">
+        <button type="submit"><span></span><button>
+    </form>
+{% endblock %}
