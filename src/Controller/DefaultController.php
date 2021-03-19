@@ -36,7 +36,7 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * diplay menu nav.
+     * display menu nav.
      *
      * @Route("/menu", name="menu")
      */

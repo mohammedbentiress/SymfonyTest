@@ -52,9 +52,10 @@ class BlogCommand extends Command
         $listOption = (null === $listValue);
         $idValue = $input->getOption('id');
         $idOption = (null === $idValue) || (is_string($idValue));
+        $formatter = $this->getHelper('formatter');
 
         $table = new Table($output);
-        $table->setHeaderTitle('Orders');
+        $table->setHeaderTitle('Blog');
         $rows = [];
 
         if (true === $listOption || true === $idOption) {
@@ -80,8 +81,8 @@ class BlogCommand extends Command
             return 0;
         } else {
             $formattedLine = $formatter->formatSection(
-                'OrderCommand',
-                'This command allows you to get all orders, filtred by  by id, set the status of this order or name'
+                'BlogCommand',
+                'This command allows you to get all blogs, filtred by  by id, set the status of this order or name'
             );
             $output->writeln($formattedLine);
 
