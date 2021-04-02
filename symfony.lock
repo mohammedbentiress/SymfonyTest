@@ -11,6 +11,9 @@
     "composer/xdebug-handler": {
         "version": "1.4.5"
     },
+    "dbrekelmans/bdi": {
+        "version": "0.3"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -143,6 +146,9 @@
     },
     "php-cs-fixer/diff": {
         "version": "v1.3.1"
+    },
+    "php-webdriver/webdriver": {
+        "version": "1.10.0"
     },
     "phpdocumentor/reflection-common": {
         "version": "2.2.0"
@@ -379,6 +385,15 @@
     "symfony/orm-pack": {
         "version": "v2.1.0"
     },
+    "symfony/panther": {
+        "version": "1.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "1.0",
+            "ref": "93d9baa582d0a755cc9ef81bc38a921d5fa16973"
+        }
+    },
     "symfony/phpunit-bridge": {
         "version": "5.1",
         "recipe": {
@@ -557,6 +572,9 @@
     },
     "symfony/yaml": {
         "version": "v4.4.20"
+    },
+    "symfonycasts/verify-email-bundle": {
+        "version": "v1.3.0"
     },
     "twig/extra-bundle": {
         "version": "v3.3.0"

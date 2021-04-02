@@ -15,26 +15,33 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class BlogController extends AbstractController
 {
-    /**
-     * Get  the blog specified by slug and being visible .
-     * and add a comment to blog.
-     *
-     * @Route("/blog/{slug}", name="blog")
-     *
-     * and add a comment to blog
-     */
-    public function getVisibleBlogs(SessionInterface $session, Request $request, Blog $blog, EntityManagerInterface $manager): Response
+
+     /**
+      * Get  the blog specified by slug and being visible .
+      * and add a comment to blog.
+      *
+      * @Route("/blog/{slug}", name="blog")
+      *
+      * @param SessionInterface $session
+      * @param Request $request
+      * @param Blog $blog
+      * @param EntityManagerInterface $manager
+      * @return Response
+      */
+    public function getVisibleBlog(SessionInterface $session, Request $request, Blog $blog, EntityManagerInterface $manager): Response
     {
         if (!$blog->getVisible()) {
             throw $this->createNotFoundException('The blog does not exist');
         }
 
+        $related = $blog->getCategory()->getBlogs();
         $comment = new Comment();
 
         if (true === $session->has('USER')) {
+            dump('user found in session');
             $user = $session->get('USER');
-            $comment->setUsername($user['name']);
-            $comment->setUserEmail($user['email']);
+            $comment->setUsername($user['name'])
+                ->setUserEmail($user['email']);
         } else {
             $user = [
                 'name' => '',
@@ -50,23 +57,27 @@ class BlogController extends AbstractController
             $user['name'] = $comment->getUsername();
             $user['email'] = $comment->getUserEmail();
             $session->set('USER', $user);
-            $comment->setBlog($blog);
+            $comment->setValid(true)
+                ->setBlog($blog)
+                ->setCreatedAt(new \DateTime());
             $manager->persist($comment);
             $manager->flush();
-        }
 
-        $related = $blog->getCategory()->getBlogs();
+            $this->addFlash('success', 'comment added');
+
+            return $this->redirectToRoute('blog', ['slug' => $blog->getSlug()],Response::HTTP_CREATED);
+        }
 
         return $this->render('blog/index.html.twig', [
               'blog' => $blog,
               'related' => $related,
               'form' => $form->createView(),
-              'comments' => $blog->getComments(),
+              'comments' => $blog->getValidComments(),
           ]);
     }
 
     /**
-     * Performs the search of the blog bya given word.
+     * Performs the search of the blog by a given query.
      *
      * @Route("/search", name="search")
      *

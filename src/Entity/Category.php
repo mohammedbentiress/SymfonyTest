@@ -78,6 +78,23 @@ class Category
         return $this->blogs;
     }
 
+    /**
+     * Get visible blogs only.
+     *
+     * @return Collection|Comment[]
+     */
+    public function getVisibileBlogs(): Collection
+    {
+        $visibleBlogs = new ArrayCollection();
+        foreach ($this->blogs as $blog) {
+            if ($blog->getVisible()) {
+                $visibleBlogs[] = $blog;
+            }
+        }
+
+        return $visibleBlogs;
+    }
+
     public function addBlog(Blog $blog): self
     {
         if (!$this->blogs->contains($blog)) {

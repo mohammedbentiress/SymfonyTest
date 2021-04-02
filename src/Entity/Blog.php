@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=BlogRepository::class)
@@ -21,21 +22,33 @@ class Blog
     private $id;
 
     /**
+     * @Assert\NotBlank(message="Please fill the title")
+     * @Assert\NotNull(message="This field is mandaory")
      * @ORM\Column(type="string", length=255)
      */
     private $title;
 
     /**
+     * @Assert\NotBlank(message="Please fill the introduction")
+     * @Assert\NotNull(message="This field is mandaory")
      * @ORM\Column(type="string", length=255)
      */
     private $introduction;
 
     /**
+     * @Assert\NotBlank(message="Please fill the introduction")
+     * @Assert\NotNull(message="This field is mandaory")
      * @ORM\Column(type="text")
      */
     private $content;
 
     /**
+     * @Assert\NotBlank(message="Please fill the introduction")
+     * @Assert\NotNull(message="This field is mandaory")
+     * @Assert\Type(
+     *     type="DateTime",
+     *     message="The value {{ value }} is not a valid {{ type }}."
+     *    )
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
@@ -201,6 +214,23 @@ class Blog
     public function getComments(): Collection
     {
         return $this->comments;
+    }
+
+    /**
+     * Get valid comments only.
+     *
+     * @return Collection|Comment[]
+     */
+    public function getValidComments(): Collection
+    {
+        $validComments = new ArrayCollection();
+        foreach ($this->comments as $comment) {
+            if ($comment->getValid()) {
+                $validComments[] = $comment;
+            }
+        }
+
+        return $validComments;
     }
 
     public function addComment(Comment $comment): self

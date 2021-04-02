@@ -22,7 +22,21 @@ class DefaultController extends AbstractController
         // find the last created blogs
         $last_blogs = $blogRepo->findBy([], ['createdAt' => 'DESC'], 6, 0);
 
-        $categories = $categoryRepo->findBy(['id' => [25, 26]]);
+        $categories = $categoryRepo->findAll();
+
+        foreach ($categories as $categorie) {
+            $categoriesID[] = $categorie->getId();
+        }
+
+        $keys = array_rand($categoriesID, 2);
+
+        $arr = [$categoriesID[$keys[0]], $categoriesID[$keys[1]]];
+
+        $categories = $categoryRepo->findBy(['id' => $arr]);
+
+        $right = $categories[0]->getVisibileBlogs();
+
+        $left = $categories[1]->getVisibileBlogs();
 
         $popularBlogs = $blogRepo->findBy(['popular' => true, 'visible' => true]);
         $trendingBlogs = $blogRepo->findBy(['trending' => true, 'visible' => true]);
@@ -31,7 +45,8 @@ class DefaultController extends AbstractController
             'popular' => $popularBlogs,
             'last' => $last_blogs,
             'trends' => $trendingBlogs,
-            'categories' => $categories,
+            'rightblogs' => $right,
+            'leftBlogs' => $left,
         ]);
     }
 

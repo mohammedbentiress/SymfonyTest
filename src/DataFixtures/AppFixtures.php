@@ -6,10 +6,11 @@ use App\Entity\Blog;
 use App\Entity\Category;
 use App\Entity\Comment;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 
-class AppFixtures extends Fixture
+class AppFixtures extends Fixture implements FixtureGroupInterface
 {
     const NBR_BLOGS = 6;
     const NBR_CATEGORIES = 8;
@@ -54,10 +55,13 @@ class AppFixtures extends Fixture
                     ->setCategory($category);
                 for ($k = 0; $k < rand(1, self::NBR_COMMENTS); ++$k) {
                     $comment = new Comment();
+                    $days = (new \DateTime())->diff($blog->getCreatedAt())->days;
                     $nbSentences = rand(3, 5);
                     $comment->setContent($this->faker->paragraph($nbSentences))
                             ->setUsername($this->faker->name)
                             ->setUserEmail($this->faker->email)
+                            ->setValid($this->faker->boolean($chanceOfGettingTrue = 85))
+                            ->setCreatedAt($this->faker->dateTimeBetween('-'.$days.' days'))
                             ->setBlog($blog);
                     $manager->persist($comment);
                 }
@@ -67,5 +71,10 @@ class AppFixtures extends Fixture
         }
 
         $manager->flush();
+    }
+
+    public static function getGroups(): array
+    {
+        return ['group1'];
     }
 }

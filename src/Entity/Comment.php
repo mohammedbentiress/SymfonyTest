@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\CommentRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * @ORM\Entity(repositoryClass=CommentRepository::class)
@@ -28,6 +29,9 @@ class Comment
     /**
      * @Assert\NotBlank(message="Please fill the email")
      * @Assert\NotNull(message="This field is mandaory")
+     * @Assert\Email(
+     *     message = "The email '{{ value }}' is not a valid email."
+     * )
      * @ORM\Column(type="string", length=255)
      */
     private $userEmail;
@@ -49,6 +53,11 @@ class Comment
      * @ORM\Column(type="boolean")
      */
     private $valid;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
 
     public function getId(): ?int
     {
@@ -113,5 +122,51 @@ class Comment
         $this->valid = $valid;
 
         return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * @Assert\Callback()
+     *
+     * @param [type] $payload
+     *
+     * @return void
+     */
+    public function invalidUsername(ExecutionContextInterface $context, $payload)
+    {
+        if (!preg_match('/^[A-Za-z][A-Za-z0-9]{5,31}$/', $this->getUsername())) {
+            $message = 'The username is invalid, username must start with a letter';
+            $context->buildViolation($message)
+                ->atPath('username')
+                ->addViolation();
+        }
+    }
+
+    /**
+     * @Assert\Callback()
+     *
+     * @param  $payload
+     *
+     * @return void
+     */
+    public function invalidContent(ExecutionContextInterface $context, $payload)
+    {
+        if (!preg_match('/^[A-Za-z][A-Za-z0-9[:punct:] ]{2,300}$/', $this->getContent())) {
+            $message = 'The comment should at least contain two words';
+            $context->buildViolation($message)
+                ->atPath('content')
+                ->addViolation();
+        }
     }
 }
