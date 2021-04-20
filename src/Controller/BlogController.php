@@ -15,19 +15,17 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class BlogController extends AbstractController
 {
-
-     /**
-      * Get  the blog specified by slug and being visible .
-      * and add a comment to blog.
-      *
-      * @Route("/blog/{slug}", name="blog")
-      *
-      * @param SessionInterface $session
-      * @param Request $request
-      * @param Blog $blog
-      * @param EntityManagerInterface $manager
-      * @return Response
-      */
+    /**
+     * Get  the blog specified by slug and being visible .
+     * and add a comment to blog.
+     *
+     * @Route("/blog/{slug}", name="blog")
+     *
+     * @param SessionInterface       $session the user session instance
+     * @param Request                $request the request instance
+     * @param Blog                   $blog    the blog specified in url
+     * @param EntityManagerInterface $manager entity manager instance
+     */
     public function getVisibleBlog(SessionInterface $session, Request $request, Blog $blog, EntityManagerInterface $manager): Response
     {
         if (!$blog->getVisible()) {
@@ -65,7 +63,7 @@ class BlogController extends AbstractController
 
             $this->addFlash('success', 'comment added');
 
-            return $this->redirectToRoute('blog', ['slug' => $blog->getSlug()],Response::HTTP_CREATED);
+            return $this->redirectToRoute('blog', ['slug' => $blog->getSlug()], Response::HTTP_CREATED);
         }
 
         return $this->render('blog/index.html.twig', [

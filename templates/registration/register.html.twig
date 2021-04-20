@@ -13,12 +13,33 @@
                 <h1>Register</h1>
 
                 {{ form_start(registrationForm) }}
-                    {{ form_row(registrationForm.email) }}
-                    {{ form_row(registrationForm.password, {
-                        label: 'Password'
-                    }) }}
-                    {{ form_row(registrationForm.agreeTerms) }}
-
+                    <div class="row">
+                        <div class="col-6">
+                            {{ form_row(registrationForm.firstName) }}
+                        </div>
+                        <div class="col-6">
+                            {{ form_row(registrationForm.lastName) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            {{ form_row(registrationForm.email) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            {{ form_row(registrationForm.password.first) }}
+                        </div>
+                        <div class="col-6">
+                            {{ form_row(registrationForm.password.second) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            {{ form_row(registrationForm.username) }}
+                        </div>
+                    </div>
+                        {{ form_row(registrationForm.agreeTerms) }}
                     <button type="submit" class="btn btn-lg btn-primary">Register</button>
                 {{ form_end(registrationForm) }}
             </div>

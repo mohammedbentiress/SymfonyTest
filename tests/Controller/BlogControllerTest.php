@@ -61,7 +61,6 @@ class BlogControllerTest extends PantherTestCase
         $client = static::createPantherClient();
 
         $crawler = $client->request('GET', '/blog/ipsam-qui-sint-iste-perferendis-laboriosam');
-        sleep(2);
         $client->getMouse()->mouseMoveTo('.burger');
         $client->takeScreenshot('tests\Screenshots\hover_on_title.png');
 

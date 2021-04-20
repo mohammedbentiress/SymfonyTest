@@ -15,5 +15,12 @@
         <li class="nav-item">
             <a class="nav-link" href="{{ path('app_login') }}"><span class="fas fa-sign-in-alt"></span> Login</a>
         </li>
+    {% else %}
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{path('dashboard')}}" class="account_circle  dropdown-item">Administration</a>
+        {% endif %}
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('app_logout') }}"><span class="fas fa-user"></span>logout</a>
+        </li>
     {% endif %}
 </ul>

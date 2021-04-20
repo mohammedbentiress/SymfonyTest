@@ -10,15 +10,29 @@
     <div class="container">
         <div class="site-navigation">
             <div class="row">
-                <div class="col-md-6 text-center order-1 order-md-2 mb-3 mb-md-0">
-                    <a href="{{path('home')}}" class="logo m-0 text-uppercase">MagDesign</a>
+                <div class="col-md-4 text-center order-1 order-md-3 mb-3 mb-md-0">
+                    <a href="{{path('home')}}" class="logo m-0 text-uppercase">Bloggy</a>
                 </div>
-                <div class="col-md-3 order-3 order-md-1">
+                <div class="col-md-3 order-3 order-md-2">
                     <form action="{{ url('search') }}" class="search-form">
                         <span class="icon-search2"></span>
                         <input type="search" class="form-control" placeholder="{% trans %} Search... {% endtrans %}"  name="q">
                     </form>
                 </div>
+                {% if app.user %}
+                    <div class="col-md-2 order-md-1">
+                        <div class="post-meta mb-1">
+                            <a href="{{ path('profile') }}" class="post-author d-flex align-items-center">
+                                <div class="author-pic">
+                                    <img style="margin-right: 10px; max-height: 100%; border-radius: 50%" src="https://i.pravatar.cc/45" alt="Image">
+                                </div>
+                                <div class="text">
+                                    <strong>Sergy Campbell</strong>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                {% endif %}
                 <div class="col-md-3 text-end order-2 order-md-3 mb-3 mb-md-0">
                     <div class="d-flex">
                         <ul class="list-unstyled social me-auto">
