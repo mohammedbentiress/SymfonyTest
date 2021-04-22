@@ -1,4 +1,5 @@
 # Blogger
+  Simple blog site built in using php(symfony)/mysql
 
 ## Symfony Form
   - A simple form to add a comment into a blog
