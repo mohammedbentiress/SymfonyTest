@@ -1,19 +1,22 @@
-# SymfonyTest
-# CONSOLE COMMANDE
+# Blogger
 
-  - Une commande symfony permettant de lister les blog enregistrés
-  - Gestion des erreurs
-  - En respectant  Lifecycle d'une commande
+## Symfony Form
+  - A simple form to add a comment into a blog
+  - 
+## CONSOLE COMMAND
+  - A symfony command to list registered blogs
+  - Error handling
+  - Respecting the lifecycle of a command
    
-# Commandes à exécuter au lancement du projet
-- Pour installer le projet, lancer la commande **composer install**
-- Pour installer la base de données **php bin/console doctrine:database:create**
-- Pour créer une migration **php bin/console make:migration**
-- Pour charger les migrations **php bin/console doctrine:migrations:migrate**
-- Pour charger les fausses données **php bin/console doctrine:fixtures:load**
-- Repo GIT pour les différents [exemples][git-repo]
+## Commands to run when launching the project
+- To install the project, run the **composer install** command
+- To crate the database **php bin/console doctrine:database:create**
+- To create a migration **php bin/console make:migration**
+- To load migrations **php bin/console doctrine:migrations:migrate**
+- To load the fake data **php bin/console doctrine:fixtures:load**
+- 
+[git-repo]: <https://github.com/mohammedbentiress/SymfonyTest>
 
 
-   [git-repo]: <https://github.com/mohammedbentiress/SymfonyTest>
 
   
