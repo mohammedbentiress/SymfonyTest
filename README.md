@@ -1,5 +1,5 @@
 # Blogger
-  Simple blog site built in using php(symfony)/mysql
+  Simple blog site built using php(symfony)/mysql, in scope of a symfony test.
 
 ## Symfony Form
   - A simple form to add a comment into a blog
