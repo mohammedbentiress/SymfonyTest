@@ -14,8 +14,9 @@
 - To create a migration **php bin/console make:migration**
 - To load migrations **php bin/console doctrine:migrations:migrate**
 - To load the fake data **php bin/console doctrine:fixtures:load**
-- 
-[git-repo]: <https://github.com/mohammedbentiress/SymfonyTest>
+ 
+  
+  [git-repo]: <https://github.com/mohammedbentiress/SymfonyTest>
 
 
 
