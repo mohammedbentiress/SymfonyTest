@@ -2,7 +2,7 @@
 
 ## Symfony Form
   - A simple form to add a comment into a blog
-  - 
+   
 ## CONSOLE COMMAND
   - A symfony command to list registered blogs
   - Error handling
